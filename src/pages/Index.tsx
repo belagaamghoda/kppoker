@@ -23,12 +23,12 @@ const Index = () => {
       
       spotlightRef.current.style.left = `${x}px`;
       spotlightRef.current.style.top = `${y}px`;
-      spotlightRef.current.style.width = '500px';
-      spotlightRef.current.style.height = '500px';
+      spotlightRef.current.style.width = '600px';
+      spotlightRef.current.style.height = '600px';
       spotlightRef.current.style.opacity = '1';
       
       // Add custom spotlight effect on content
-      const elements = document.querySelectorAll('.content-reveal:not(.signup-form)');
+      const elements = document.querySelectorAll('.content-reveal');
       elements.forEach(el => {
         const rect = (el as HTMLElement).getBoundingClientRect();
         const elCenterX = rect.left + rect.width / 2;
@@ -42,14 +42,12 @@ const Index = () => {
         
         // Create a normalized opacity value based on distance
         // Closer elements are more visible (up to 1), farther elements are less visible (down to 0.1)
-        const maxDistance = 400; // Maximum influence distance - reduced for more pronounced effect
+        const maxDistance = 500; // Maximum influence distance - reduced for more pronounced effect
         const opacity = distance < maxDistance 
-          ? 0.1 + 0.9 * (1 - Math.min(distance / maxDistance, 1))
-          : 0.1;
+          ? 0.15 + 0.85 * (1 - Math.min(distance / maxDistance, 1))
+          : 0.15;
         
-        // Apply more dramatic falloff
-        const adjustedOpacity = Math.pow(opacity, 1.5);
-        (el as HTMLElement).style.opacity = adjustedOpacity.toString();
+        (el as HTMLElement).style.opacity = opacity.toString();
       });
     };
 
@@ -58,9 +56,9 @@ const Index = () => {
       spotlightRef.current.style.opacity = '0';
       
       // Reset all content reveal elements to base opacity
-      const elements = document.querySelectorAll('.content-reveal:not(.signup-form)');
+      const elements = document.querySelectorAll('.content-reveal');
       elements.forEach(el => {
-        (el as HTMLElement).style.opacity = '0.1';
+        (el as HTMLElement).style.opacity = '0.15';
       });
     };
 

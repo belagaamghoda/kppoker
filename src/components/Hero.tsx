@@ -62,22 +62,6 @@ const Hero = () => {
         <CardAnimation />
       </div>
 
-      {/* Logo Options */}
-      <div className="absolute top-6 left-0 right-0 flex justify-center space-x-8 md:space-x-12 px-4 z-20">
-        <div className="logo-option glass rounded-lg p-2 cursor-pointer hover:bg-white/10 transition-all">
-          <div className="text-3xl font-bold text-gradient">K♦️P</div>
-        </div>
-        <div className="logo-option glass rounded-lg p-2 cursor-pointer hover:bg-white/10 transition-all">
-          <div className="text-3xl font-bold text-gradient">♠️ KP</div>
-        </div>
-        <div className="logo-option glass rounded-lg p-2 cursor-pointer hover:bg-white/10 transition-all">
-          <div className="text-3xl font-bold text-gradient">K<span className="text-poker-gold">♥️</span>P</div>
-        </div>
-        <div className="logo-option glass rounded-lg p-2 cursor-pointer hover:bg-white/10 transition-all">
-          <div className="text-3xl font-bold text-gradient"><span className="text-poker-accent">K</span>♣️<span className="text-poker-gold">P</span></div>
-        </div>
-      </div>
-
       {/* Content */}
       <div className="container max-w-5xl z-10 text-center content-reveal">
         <motion.div
@@ -87,12 +71,12 @@ const Hero = () => {
           className="space-y-6"
         >
           <div className="inline-block mb-1">
-            <span className="text-poker-accent bg-poker-accent/10 px-4 py-1.5 rounded-full text-xl md:text-2xl font-medium tracking-wider">
+            <span className="text-poker-accent bg-poker-accent/10 px-4 py-1.5 rounded-full text-lg md:text-xl font-medium tracking-wider">
               COMING SOON
             </span>
           </div>
           
-          <h1 className="text-6xl md:text-8xl font-bold leading-tight md:leading-tight md:tracking-tight">
+          <h1 className="text-7xl md:text-9xl font-bold leading-tight md:leading-tight">
             <span className="text-gradient">
               {formatTitle("KHEL POKER")}
             </span>
@@ -103,7 +87,7 @@ const Hero = () => {
           </p>
           
           <p className="text-lg text-gray-400 italic">
-            A vision by <a href="https://www.linkedin.com/in/ca-parth/" target="_blank" rel="noopener noreferrer" className="text-poker-gold font-medium hover:underline">Parth Sharma</a>, Founder
+            A vision by <span className="text-poker-gold font-medium">Parth Sharma</span>, Founder
           </p>
         </motion.div>
       </div>

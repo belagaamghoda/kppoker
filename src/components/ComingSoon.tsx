@@ -74,7 +74,7 @@ const ComingSoon = () => {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="glass rounded-xl p-8 md:p-12 text-center max-w-3xl mx-auto signup-form"
+          className="glass rounded-xl p-8 md:p-12 text-center max-w-3xl mx-auto content-reveal opacity-90 hover:opacity-100"
         >
           <h3 className="text-2xl md:text-3xl font-bold mb-4">
             Secure Your Seat at the Table

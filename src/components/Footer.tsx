@@ -30,7 +30,7 @@ const Footer = () => {
             className="text-center md:text-right mb-6 md:mb-0"
           >
             <p className="text-sm text-white/80">
-              Founded by <a href="https://www.linkedin.com/in/ca-parth/" target="_blank" rel="noopener noreferrer" className="text-poker-gold font-medium hover:underline">Parth Sharma</a>
+              Founded by <span className="text-poker-gold font-medium">Parth Sharma</span>
             </p>
             <p className="text-xs text-gray-400 mt-1">
               Bringing a passion for poker to the digital realm
