@@ -14,8 +14,8 @@ const Hero = () => {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden">
       {/* Background Elements */}
-      <div className="absolute inset-0 bg-poker-navy z-[-1]">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-poker-royal/20 to-transparent" />
+      <div className="absolute inset-0 bg-black z-[-1]">
+        <div className="absolute top-0 left-0 w-full h-full bg-poker-royal/10" />
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMyMjIiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0aDEydjZIMzZ6TTE4IDM0aDEydjZIMTh6TTM2IDE2aDEydjZIMzZ6TTE4IDE2aDEydjZIMTh6TTI3IDI1aDZ2MTBoLTZ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-10" />
       </div>
 
@@ -25,7 +25,7 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="container max-w-5xl z-10 text-center">
+      <div className="container max-w-5xl z-10 text-center content-reveal">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
@@ -43,7 +43,7 @@ const Hero = () => {
           </h1>
           
           <p className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-            Where every hand tells a story and every play makes a legend
+            Where strategy meets fortune, and legends are born with every hand
           </p>
         </motion.div>
       </div>
