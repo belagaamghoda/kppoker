@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
 @tailwind base;
@@ -127,7 +128,7 @@
   width: 0;
   height: 0;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0) 70%);
+  background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, rgba(0,0,0,0) 70%);
   transform: translate(-50%, -50%);
   pointer-events: none;
   opacity: 0;
@@ -136,9 +137,22 @@
 
 .content-reveal {
   transition: opacity 0.3s ease;
+  opacity: 0.2;
+}
+
+.content-reveal:hover {
+  opacity: 1;
+}
+
+/* More focused spotlight effect */
+.spotlight-container:hover .content-reveal {
   opacity: 0.3;
 }
 
-.content-reveal:hover, .spotlight-container:hover .content-reveal {
-  opacity: 1;
+/* First letter styling for Khel Poker */
+.first-letter-large {
+  display: inline-block;
+  font-size: 1.3em;
+  line-height: 0.8;
+  vertical-align: baseline;
 }

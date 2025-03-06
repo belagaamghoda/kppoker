@@ -13,7 +13,7 @@ const Index = () => {
     // Set page title and description
     document.title = "Khel Poker - Coming Soon";
 
-    // Spotlight effect
+    // Enhanced spotlight effect
     const handleMouseMove = (e: MouseEvent) => {
       if (!spotlightRef.current || !containerRef.current) return;
       
@@ -23,14 +23,43 @@ const Index = () => {
       
       spotlightRef.current.style.left = `${x}px`;
       spotlightRef.current.style.top = `${y}px`;
-      spotlightRef.current.style.width = '600px';
-      spotlightRef.current.style.height = '600px';
+      spotlightRef.current.style.width = '500px';
+      spotlightRef.current.style.height = '500px';
       spotlightRef.current.style.opacity = '1';
+      
+      // Add custom spotlight effect on content
+      const elements = document.querySelectorAll('.content-reveal');
+      elements.forEach(el => {
+        const rect = (el as HTMLElement).getBoundingClientRect();
+        const elCenterX = rect.left + rect.width / 2;
+        const elCenterY = rect.top + rect.height / 2;
+        
+        // Calculate distance from mouse to element center
+        const distance = Math.sqrt(
+          Math.pow(e.clientX - elCenterX, 2) + 
+          Math.pow(e.clientY - elCenterY, 2)
+        );
+        
+        // Create a normalized opacity value based on distance
+        // Closer elements are more visible (up to 1), farther elements are less visible (down to 0.15)
+        const maxDistance = 600; // Maximum influence distance
+        const opacity = distance < maxDistance 
+          ? 0.2 + 0.8 * (1 - Math.min(distance / maxDistance, 1))
+          : 0.2;
+        
+        (el as HTMLElement).style.opacity = opacity.toString();
+      });
     };
 
     const handleMouseLeave = () => {
       if (!spotlightRef.current) return;
       spotlightRef.current.style.opacity = '0';
+      
+      // Reset all content reveal elements to base opacity
+      const elements = document.querySelectorAll('.content-reveal');
+      elements.forEach(el => {
+        (el as HTMLElement).style.opacity = '0.2';
+      });
     };
 
     const container = containerRef.current;

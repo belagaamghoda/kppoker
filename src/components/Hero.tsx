@@ -11,6 +11,27 @@ const Hero = () => {
     setIsVisible(true);
   }, []);
 
+  // Function to style the first letter of each word
+  const formatTitle = (title: string) => {
+    return title.split(' ').map((word, wordIndex) => (
+      <span key={wordIndex} className="inline-block">
+        {word.split('').map((letter, letterIndex) => {
+          // Make K and P bigger for "KHEL POKER"
+          const isBiggerLetter = (letter === 'K' || letter === 'P');
+          return (
+            <span 
+              key={letterIndex} 
+              className={isBiggerLetter ? "first-letter-large" : ""}
+            >
+              {letter}
+            </span>
+          );
+        })}
+        {wordIndex < title.split(' ').length - 1 ? ' ' : ''}
+      </span>
+    ));
+  };
+
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden">
       {/* Background Elements */}
@@ -33,13 +54,15 @@ const Hero = () => {
           className="space-y-6"
         >
           <div className="inline-block mb-1">
-            <span className="text-poker-accent bg-poker-accent/10 px-3 py-1 rounded-full text-sm font-medium tracking-wider">
+            <span className="text-poker-accent bg-poker-accent/10 px-4 py-1.5 rounded-full text-md font-medium tracking-wider">
               COMING SOON
             </span>
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-bold leading-tight md:leading-tight">
-            <span className="text-gradient">KHEL POKER</span>
+          <h1 className="text-6xl md:text-8xl font-bold leading-tight md:leading-tight">
+            <span className="text-gradient">
+              {formatTitle("KHEL POKER")}
+            </span>
           </h1>
           
           <p className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto leading-relaxed">

@@ -16,7 +16,9 @@ const Footer = () => {
             transition={{ duration: 0.5 }}
             className="mb-6 md:mb-0"
           >
-            <h2 className="text-2xl font-bold text-gradient">KHEL POKER</h2>
+            <h2 className="text-2xl font-bold text-gradient">
+              <span className="first-letter-large">K</span>HEL <span className="first-letter-large">P</span>OKER
+            </h2>
             <p className="text-sm text-gray-400 mt-1">Raise the stakes. Elevate the game.</p>
           </motion.div>
           
