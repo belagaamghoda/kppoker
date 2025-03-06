@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
 @tailwind base;
@@ -127,7 +128,7 @@
   width: 0;
   height: 0;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(0,0,0,0) 70%);
+  background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, rgba(0,0,0,0) 70%);
   transform: translate(-50%, -50%);
   pointer-events: none;
   opacity: 0;
@@ -136,7 +137,7 @@
 
 .content-reveal {
   transition: opacity 0.3s ease;
-  opacity: 0.15;
+  opacity: 0.1; /* Make text darker by default */
 }
 
 .content-reveal:hover {
@@ -145,13 +146,57 @@
 
 /* More focused spotlight effect */
 .spotlight-container:hover .content-reveal {
-  opacity: 0.2;
+  opacity: 0.15;
+}
+
+/* Email signup form should always be more visible */
+.signup-form {
+  opacity: 0.9 !important;
+}
+
+.signup-form:hover {
+  opacity: 1 !important;
 }
 
 /* First letter styling for Khel Poker */
 .first-letter-large {
   display: inline-block;
-  font-size: 1.3em;
+  font-size: 1.4em;
   line-height: 0.8;
   vertical-align: baseline;
+}
+
+/* Mobile optimization for Khel Poker text */
+@media (max-width: 768px) {
+  h1 .inline-block + .inline-block {
+    margin-left: 0.1em; /* Reduce space between KHEL and POKER on mobile */
+  }
+
+  .first-letter-large {
+    font-size: 1.3em; /* Slightly smaller on mobile but still prominent */
+  }
+  
+  /* Make sure P is visible in mobile */
+  h1 span span.first-letter-large {
+    display: inline-block;
+    position: relative;
+    z-index: 5;
+  }
+
+  /* Logo options get smaller on mobile */
+  .logo-option {
+    transform: scale(0.85);
+  }
+}
+
+/* Improve the paragraph line breaks for "Ultimate Poker Experience" */
+.text-gradient br {
+  display: inline-block;
+}
+
+/* Enhance logo visibility */
+.logo-option {
+  min-width: 60px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
 }

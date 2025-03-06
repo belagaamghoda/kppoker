@@ -25,7 +25,7 @@ const EmailSignup = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto w-full">
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto w-full signup-form">
       <div className="flex flex-col sm:flex-row gap-3">
         <input
           type="email"
@@ -33,14 +33,14 @@ const EmailSignup = () => {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your email address"
           required
-          className="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-poker-gold/50 shadow-[0_0_15px_rgba(255,215,0,0.1)]"
+          className="flex-1 px-4 py-3 rounded-lg bg-white/15 border border-white/30 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-poker-gold/50 shadow-[0_0_15px_rgba(255,215,0,0.15)]"
         />
         <motion.button
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.98 }}
           disabled={isSubmitting}
           type="submit"
-          className="px-6 py-3 bg-gradient-to-r from-poker-gold to-poker-royal text-white font-medium rounded-lg transition-all shadow-[0_0_20px_rgba(255,215,0,0.2)] disabled:opacity-70"
+          className="px-6 py-3 bg-gradient-to-r from-poker-gold to-poker-royal text-white font-medium rounded-lg transition-all shadow-[0_0_20px_rgba(255,215,0,0.3)] disabled:opacity-70"
         >
           {isSubmitting ? (
             <span className="inline-flex items-center">
