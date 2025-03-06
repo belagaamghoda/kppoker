@@ -27,6 +27,21 @@ const Footer = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-center md:text-right mb-6 md:mb-0"
+          >
+            <p className="text-sm text-white/80">
+              Founded by <span className="text-poker-gold font-medium">Parth Sharma</span>
+            </p>
+            <p className="text-xs text-gray-400 mt-1">
+              Bringing a passion for poker to the digital realm
+            </p>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
             className="text-center md:text-right"
           >
             <p className="text-sm text-gray-400">

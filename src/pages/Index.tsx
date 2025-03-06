@@ -23,8 +23,8 @@ const Index = () => {
       
       spotlightRef.current.style.left = `${x}px`;
       spotlightRef.current.style.top = `${y}px`;
-      spotlightRef.current.style.width = '500px';
-      spotlightRef.current.style.height = '500px';
+      spotlightRef.current.style.width = '600px';
+      spotlightRef.current.style.height = '600px';
       spotlightRef.current.style.opacity = '1';
       
       // Add custom spotlight effect on content
@@ -41,11 +41,11 @@ const Index = () => {
         );
         
         // Create a normalized opacity value based on distance
-        // Closer elements are more visible (up to 1), farther elements are less visible (down to 0.15)
-        const maxDistance = 600; // Maximum influence distance
+        // Closer elements are more visible (up to 1), farther elements are less visible (down to 0.1)
+        const maxDistance = 500; // Maximum influence distance - reduced for more pronounced effect
         const opacity = distance < maxDistance 
-          ? 0.2 + 0.8 * (1 - Math.min(distance / maxDistance, 1))
-          : 0.2;
+          ? 0.15 + 0.85 * (1 - Math.min(distance / maxDistance, 1))
+          : 0.15;
         
         (el as HTMLElement).style.opacity = opacity.toString();
       });
@@ -58,7 +58,7 @@ const Index = () => {
       // Reset all content reveal elements to base opacity
       const elements = document.querySelectorAll('.content-reveal');
       elements.forEach(el => {
-        (el as HTMLElement).style.opacity = '0.2';
+        (el as HTMLElement).style.opacity = '0.15';
       });
     };
 

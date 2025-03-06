@@ -13,6 +13,23 @@ const Hero = () => {
 
   // Function to style the first letter of each word
   const formatTitle = (title: string) => {
+    // For "KHEL POKER" with specific styling
+    if (title === "KHEL POKER") {
+      return (
+        <>
+          <span className="inline-block">
+            <span className="first-letter-large">K</span>
+            <span>HEL</span>
+          </span>{' '}
+          <span className="inline-block">
+            <span className="first-letter-large">P</span>
+            <span>OKER</span>
+          </span>
+        </>
+      );
+    }
+
+    // For other titles
     return title.split(' ').map((word, wordIndex) => (
       <span key={wordIndex} className="inline-block">
         {word.split('').map((letter, letterIndex) => {
@@ -54,12 +71,12 @@ const Hero = () => {
           className="space-y-6"
         >
           <div className="inline-block mb-1">
-            <span className="text-poker-accent bg-poker-accent/10 px-4 py-1.5 rounded-full text-md font-medium tracking-wider">
+            <span className="text-poker-accent bg-poker-accent/10 px-4 py-1.5 rounded-full text-lg md:text-xl font-medium tracking-wider">
               COMING SOON
             </span>
           </div>
           
-          <h1 className="text-6xl md:text-8xl font-bold leading-tight md:leading-tight">
+          <h1 className="text-7xl md:text-9xl font-bold leading-tight md:leading-tight">
             <span className="text-gradient">
               {formatTitle("KHEL POKER")}
             </span>
@@ -67,6 +84,10 @@ const Hero = () => {
           
           <p className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
             Where strategy meets fortune, and legends are born with every hand
+          </p>
+          
+          <p className="text-lg text-gray-400 italic">
+            A vision by <span className="text-poker-gold font-medium">Parth Sharma</span>, Founder
           </p>
         </motion.div>
       </div>

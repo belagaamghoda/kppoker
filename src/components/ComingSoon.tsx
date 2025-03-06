@@ -23,20 +23,6 @@ const ComingSoon = () => {
     }
   ];
 
-  // Function to style the first letter of each word in the heading
-  const formatHeading = (text: string) => {
-    return text.split(' ').map((word, wordIndex) => (
-      <span key={wordIndex} className="inline-block">
-        {word.split('').map((letter, letterIndex) => (
-          <span key={letterIndex}>
-            {letter}
-          </span>
-        ))}
-        {wordIndex < text.split(' ').length - 1 ? ' ' : ''}
-      </span>
-    ));
-  };
-
   return (
     <section className="py-20 px-4">
       <div className="container max-w-5xl mx-auto">
@@ -48,7 +34,8 @@ const ComingSoon = () => {
             transition={{ duration: 0.7 }}
             className="text-4xl md:text-6xl font-bold mb-6"
           >
-            Crafting the Ultimate <span className="text-gradient">{formatHeading("Poker Experience")}</span>
+            Crafting the Ultimate <br />
+            <span className="text-gradient">Poker Experience</span>
           </motion.h2>
           
           <motion.p 
@@ -87,7 +74,7 @@ const ComingSoon = () => {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="glass rounded-xl p-8 md:p-12 text-center max-w-3xl mx-auto content-reveal"
+          className="glass rounded-xl p-8 md:p-12 text-center max-w-3xl mx-auto content-reveal opacity-90 hover:opacity-100"
         >
           <h3 className="text-2xl md:text-3xl font-bold mb-4">
             Secure Your Seat at the Table
