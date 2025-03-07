@@ -93,6 +93,7 @@ const Footer = () => {
             className="text-center md:text-right"
           >
             <div className="flex items-center justify-center md:justify-end space-x-4 mb-4">
+              {/* Temporarily removed sign-in button
               {!loading && (
                 user ? (
                   <button 
@@ -110,6 +111,7 @@ const Footer = () => {
                   </Link>
                 )
               )}
+              */}
             </div>
             <p className="text-sm text-gray-400">
               &copy; {currentYear} Khel Poker. All rights reserved.
