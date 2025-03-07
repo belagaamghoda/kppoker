@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -69,7 +68,10 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				'poker-gold': '#FFD700',
+				'poker-silver': '#C0C0C0',
+				'poker-royal': '#4682B4'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

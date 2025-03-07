@@ -1,9 +1,57 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { supabase } from '../integrations/supabase/client';
+import { useNavigate } from 'react-router-dom';
+import { useToast } from "@/components/ui/use-toast";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  const [user, setUser] = React.useState<any>(null);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    // Check current auth status
+    const checkUser = async () => {
+      const { data } = await supabase.auth.getSession();
+      setUser(data.session?.user || null);
+      setLoading(false);
+    };
+    
+    checkUser();
+    
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setUser(session?.user || null);
+      }
+    );
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  const handleSignOut = async () => {
+    try {
+      await supabase.auth.signOut();
+      toast({
+        title: "Signed out successfully",
+        duration: 3000,
+      });
+      navigate('/');
+    } catch (error: any) {
+      toast({
+        title: "Error signing out",
+        description: error.message,
+        variant: "destructive",
+        duration: 3000,
+      });
+    }
+  };
 
   return (
     <footer className="py-12 px-4 border-t border-white/5 content-reveal">
@@ -30,7 +78,7 @@ const Footer = () => {
             className="text-center md:text-right mb-6 md:mb-0"
           >
             <p className="text-sm text-white/80">
-              Founded by <a href="https://www.linkedin.com/in/ca-parth/" target="_blank" rel="noopener noreferrer" className="text-poker-gold font-medium hover:underline">Parth Sharma</a>
+              Founded by <a href="https://www.linkedin.com/in/ca-parth/" target="_blank" rel="noopener noreferrer" className="text-white font-medium hover:underline">Parth Sharma</a>
             </p>
             <p className="text-xs text-gray-400 mt-1">
               Bringing a passion for poker to the digital realm
@@ -44,6 +92,25 @@ const Footer = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-center md:text-right"
           >
+            <div className="flex items-center justify-center md:justify-end space-x-4 mb-4">
+              {!loading && (
+                user ? (
+                  <button 
+                    onClick={handleSignOut}
+                    className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm transition-colors"
+                  >
+                    Sign Out
+                  </button>
+                ) : (
+                  <Link 
+                    to="/auth" 
+                    className="px-4 py-2 rounded-lg bg-gradient-to-r from-poker-gold to-poker-royal text-white text-sm transition-colors"
+                  >
+                    Sign In
+                  </Link>
+                )
+              )}
+            </div>
             <p className="text-sm text-gray-400">
               &copy; {currentYear} Khel Poker. All rights reserved.
             </p>
