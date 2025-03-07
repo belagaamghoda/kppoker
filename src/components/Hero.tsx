@@ -76,7 +76,7 @@ const Hero = () => {
             </span>
           </div>
           
-          <h1 className="text-7xl md:text-9xl font-bold leading-tight md:leading-tight">
+          <h1 className="text-6xl md:text-8xl font-bold leading-tight md:leading-tight">
             <span className="text-gradient">
               {formatTitle("KHEL POKER")}
             </span>
@@ -87,7 +87,7 @@ const Hero = () => {
           </p>
           
           <p className="text-lg text-gray-400 italic">
-            A vision by <span className="text-poker-gold font-medium">Parth Sharma</span>, Founder
+            A vision by <a href="https://www.linkedin.com/in/ca-parth/" target="_blank" rel="noopener noreferrer" className="text-poker-gold font-medium hover:underline">Parth Sharma</a>, Founder
           </p>
         </motion.div>
       </div>

@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
 @tailwind base;
@@ -136,7 +137,7 @@
 
 .content-reveal {
   transition: opacity 0.3s ease;
-  opacity: 0.15;
+  opacity: 0.1; /* Reduce default opacity to make text darker when not hovered */
 }
 
 .content-reveal:hover {
@@ -145,13 +146,29 @@
 
 /* More focused spotlight effect */
 .spotlight-container:hover .content-reveal {
-  opacity: 0.2;
+  opacity: 0.15;
 }
 
 /* First letter styling for Khel Poker */
 .first-letter-large {
   display: inline-block;
-  font-size: 1.3em;
+  font-size: 1.2em; /* Slightly reduced from 1.3em */
   line-height: 0.8;
   vertical-align: baseline;
+}
+
+/* Make email signup section more visible */
+form.max-w-md {
+  opacity: 0.85 !important; /* Keep the email form more visible by default */
+}
+
+/* Mobile responsive tweaks */
+@media (max-width: 640px) {
+  h1.text-6xl .inline-block {
+    margin: 0 0.1rem; /* Reduce gap between Khel and Poker on mobile */
+  }
+  
+  .first-letter-large {
+    display: inline-block !important; /* Ensure first letters are always visible */
+  }
 }

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Hero from '../components/Hero';
@@ -23,8 +22,8 @@ const Index = () => {
       
       spotlightRef.current.style.left = `${x}px`;
       spotlightRef.current.style.top = `${y}px`;
-      spotlightRef.current.style.width = '600px';
-      spotlightRef.current.style.height = '600px';
+      spotlightRef.current.style.width = '700px'; // Increased from 600px for more intensity
+      spotlightRef.current.style.height = '700px'; // Increased from 600px for more intensity
       spotlightRef.current.style.opacity = '1';
       
       // Add custom spotlight effect on content
@@ -42,12 +41,18 @@ const Index = () => {
         
         // Create a normalized opacity value based on distance
         // Closer elements are more visible (up to 1), farther elements are less visible (down to 0.1)
-        const maxDistance = 500; // Maximum influence distance - reduced for more pronounced effect
+        const maxDistance = 400; // Reduced from 500 for more pronounced effect
         const opacity = distance < maxDistance 
-          ? 0.15 + 0.85 * (1 - Math.min(distance / maxDistance, 1))
-          : 0.15;
+          ? 0.1 + 0.9 * (1 - Math.min(distance / maxDistance, 1)) // Changed from 0.15 + 0.85 for more contrast
+          : 0.1; // Changed from 0.15 for darker text by default
         
-        (el as HTMLElement).style.opacity = opacity.toString();
+        // Special treatment for email signup
+        if ((el as HTMLElement).querySelector('form.max-w-md')) {
+          // Keep the email form more visible
+          (el as HTMLElement).style.opacity = Math.max(opacity, 0.7).toString();
+        } else {
+          (el as HTMLElement).style.opacity = opacity.toString();
+        }
       });
     };
 
@@ -58,7 +63,12 @@ const Index = () => {
       // Reset all content reveal elements to base opacity
       const elements = document.querySelectorAll('.content-reveal');
       elements.forEach(el => {
-        (el as HTMLElement).style.opacity = '0.15';
+        if ((el as HTMLElement).querySelector('form.max-w-md')) {
+          // Keep the email form more visible even when not hovering
+          (el as HTMLElement).style.opacity = '0.7';
+        } else {
+          (el as HTMLElement).style.opacity = '0.1'; // Changed from 0.15 for darker text by default
+        }
       });
     };
 
