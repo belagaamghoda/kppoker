@@ -1,0 +1,17 @@
+
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="32" height="32" rx="4" fill="#000000"/>
+  
+  <!-- Playing card shape -->
+  <rect x="4" y="4" width="24" height="24" rx="2" fill="#1A1A1A" stroke="#E6C200" stroke-width="1"/>
+  
+  <!-- KP Letters -->
+  <text x="8" y="22" font-family="Arial, sans-serif" font-weight="bold" font-size="16" fill="#E6C200">KP</text>
+  
+  <!-- Card corners -->
+  <path d="M4 6C4 4.89543 4.89543 4 6 4H8V6H6V8H4V6Z" fill="#E6C200"/>
+  <path d="M28 6C28 4.89543 27.1046 4 26 4H24V6H26V8H28V6Z" fill="#E6C200"/>
+  <path d="M4 26C4 27.1046 4.89543 28 6 28H8V26H6V24H4V26Z" fill="#E6C200"/>
+  <path d="M28 26C28 27.1046 27.1046 28 26 28H24V26H26V24H28V26Z" fill="#E6C200"/>
+</svg>

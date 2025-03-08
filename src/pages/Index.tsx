@@ -7,14 +7,25 @@ import Footer from '../components/Footer';
 const Index = () => {
   const spotlightRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const isMobile = useRef(window.innerWidth < 768);
 
   useEffect(() => {
     // Set page title and description
     document.title = "Khel Poker - Coming Soon";
-
-    // Enhanced spotlight effect
+    
+    // Scroll to top on load
+    window.scrollTo(0, 0);
+    
+    // Check if mobile
+    const checkMobile = () => {
+      isMobile.current = window.innerWidth < 768;
+    };
+    
+    window.addEventListener('resize', checkMobile);
+    
+    // Enhanced spotlight effect - only on desktop
     const handleMouseMove = (e: MouseEvent) => {
-      if (!spotlightRef.current || !containerRef.current) return;
+      if (isMobile.current || !spotlightRef.current || !containerRef.current) return;
       
       const container = containerRef.current.getBoundingClientRect();
       const x = e.clientX - container.left;
@@ -22,13 +33,18 @@ const Index = () => {
       
       spotlightRef.current.style.left = `${x}px`;
       spotlightRef.current.style.top = `${y}px`;
-      spotlightRef.current.style.width = '700px'; // Increased from 600px for more intensity
-      spotlightRef.current.style.height = '700px'; // Increased from 600px for more intensity
+      spotlightRef.current.style.width = '700px'; 
+      spotlightRef.current.style.height = '700px';
       spotlightRef.current.style.opacity = '1';
       
       // Add custom spotlight effect on content
       const elements = document.querySelectorAll('.content-reveal');
       elements.forEach(el => {
+        if (isMobile.current) {
+          (el as HTMLElement).style.opacity = '1';
+          return;
+        }
+        
         const rect = (el as HTMLElement).getBoundingClientRect();
         const elCenterX = rect.left + rect.width / 2;
         const elCenterY = rect.top + rect.height / 2;
@@ -40,11 +56,10 @@ const Index = () => {
         );
         
         // Create a normalized opacity value based on distance
-        // Closer elements are more visible (up to 1), farther elements are less visible (down to 0.1)
-        const maxDistance = 400; // Reduced from 500 for more pronounced effect
+        const maxDistance = 400;
         const opacity = distance < maxDistance 
-          ? 0.1 + 0.9 * (1 - Math.min(distance / maxDistance, 1)) // Changed from 0.15 + 0.85 for more contrast
-          : 0.1; // Changed from 0.15 for darker text by default
+          ? 0.1 + 0.9 * (1 - Math.min(distance / maxDistance, 1))
+          : 0.1;
         
         // Special treatment for email signup
         if ((el as HTMLElement).querySelector('form.max-w-md')) {
@@ -57,28 +72,36 @@ const Index = () => {
     };
 
     const handleMouseLeave = () => {
+      if (isMobile.current) return;
+      
       if (!spotlightRef.current) return;
       spotlightRef.current.style.opacity = '0';
       
       // Reset all content reveal elements to base opacity
       const elements = document.querySelectorAll('.content-reveal');
       elements.forEach(el => {
+        if (isMobile.current) {
+          (el as HTMLElement).style.opacity = '1';
+          return;
+        }
+        
         if ((el as HTMLElement).querySelector('form.max-w-md')) {
           // Keep the email form more visible even when not hovering
           (el as HTMLElement).style.opacity = '0.7';
         } else {
-          (el as HTMLElement).style.opacity = '0.1'; // Changed from 0.15 for darker text by default
+          (el as HTMLElement).style.opacity = '0.1';
         }
       });
     };
 
     const container = containerRef.current;
-    if (container) {
+    if (container && !isMobile.current) {
       container.addEventListener('mousemove', handleMouseMove);
       container.addEventListener('mouseleave', handleMouseLeave);
     }
 
     return () => {
+      window.removeEventListener('resize', checkMobile);
       if (container) {
         container.removeEventListener('mousemove', handleMouseMove);
         container.removeEventListener('mouseleave', handleMouseLeave);

@@ -17,10 +17,10 @@ const Hero = () => {
     if (title === "KHEL POKER") {
       return (
         <>
-          <span className="inline-block">
+          <span className="inline-block mr-2 md:mr-3">
             <span className="first-letter-large">K</span>
             <span>HEL</span>
-          </span>{' '}
+          </span>
           <span className="inline-block">
             <span className="first-letter-large">P</span>
             <span>OKER</span>
@@ -63,7 +63,7 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="container max-w-5xl z-10 text-center content-reveal">
+      <div className="container max-w-5xl z-10 text-center md:content-reveal">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
@@ -76,7 +76,7 @@ const Hero = () => {
             </span>
           </div>
           
-          <h1 className="text-6xl md:text-8xl font-bold leading-tight md:leading-tight">
+          <h1 className="text-5xl md:text-8xl font-bold leading-tight md:leading-tight">
             <span className="text-gradient">
               {formatTitle("KHEL POKER")}
             </span>

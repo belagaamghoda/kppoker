@@ -49,6 +49,7 @@
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 0;
   }
 
   body {
@@ -66,7 +67,7 @@
 }
 
 .text-gradient {
-  @apply text-transparent bg-clip-text bg-gradient-to-r from-poker-gold via-poker-silver to-poker-gold bg-[length:200%_auto] animate-text-shimmer;
+  @apply text-transparent bg-clip-text bg-gradient-to-r from-[#E6C200] via-[#FFC61A] to-[#E6C200] bg-[length:200%_auto] animate-text-shimmer;
 }
 
 .fade-in {
@@ -154,11 +155,6 @@
   opacity: 1;
 }
 
-/* More focused spotlight effect */
-.spotlight-container:hover .content-reveal {
-  opacity: 0.15;
-}
-
 /* First letter styling for Khel Poker */
 .first-letter-large {
   display: inline-block;
@@ -174,11 +170,24 @@ form.max-w-md {
 
 /* Mobile responsive tweaks */
 @media (max-width: 640px) {
-  h1.text-6xl .inline-block {
-    margin: 0 0.1rem; /* Reduce gap between Khel and Poker on mobile */
+  /* Make all content visible by default on mobile - no spotlight effect */
+  .content-reveal, 
+  section .content-reveal,
+  div.content-reveal {
+    opacity: 1 !important;
+  }
+  
+  /* Adjust spacing for Khel Poker on mobile */
+  h1.text-5xl {
+    line-height: 1.1;
+  }
+  
+  h1.text-5xl .inline-block {
+    display: inline !important;
   }
   
   .first-letter-large {
-    display: inline-block !important; /* Ensure first letters are always visible */
+    display: inline-block !important;
+    font-size: 1.3em !important;
   }
 }
