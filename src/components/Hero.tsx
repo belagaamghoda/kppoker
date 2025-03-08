@@ -20,10 +20,10 @@ const Hero = () => {
     const isMobile = window.innerWidth < 640;
     
     if (isMobile) {
-      // Mobile layout - stack vertically
+      // Mobile layout - stack vertically with proper spacing
       return (
         <>
-          <span className="inline-block">
+          <span className="inline-block mb-2">
             <span className="first-letter-large">K</span>
             <span>HEL</span>
           </span>

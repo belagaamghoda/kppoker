@@ -56,7 +56,7 @@ const CardAnimation = () => {
         // Add a new card
         return [...updatedCards, generateRandomCard(cardIdRef.current++)];
       });
-    }, 3000); // Add a new card every 3 seconds
+    }, 1500); // Add a new card every 1.5 seconds (faster for more fluid animation)
     
     return () => {
       if (intervalRef.current) {
@@ -86,7 +86,7 @@ const CardAnimation = () => {
             exit={{
               opacity: 0,
               scale: 0.8,
-              transition: { duration: 0.5 }
+              transition: { duration: 0.8, ease: "easeOut" }
             }}
             transition={{
               type: "spring",
