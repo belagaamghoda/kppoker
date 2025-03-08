@@ -53,6 +53,27 @@ const Footer = () => {
     }
   };
 
+  // Function to format the Khel Poker text with larger first letters
+  const formatKhelPoker = () => {
+    const isMobile = window.innerWidth < 640;
+    
+    if (isMobile) {
+      // Mobile layout - stack vertically
+      return (
+        <div className="flex flex-col items-center md:items-start">
+          <span><span className="first-letter-large">K</span>HEL</span>
+          <span><span className="first-letter-large">P</span>OKER</span>
+        </div>
+      );
+    } else {
+      return (
+        <>
+          <span className="first-letter-large">K</span>HEL <span className="first-letter-large">P</span>OKER
+        </>
+      );
+    }
+  };
+
   return (
     <footer className="py-12 px-4 border-t border-white/5 content-reveal">
       <div className="container max-w-5xl mx-auto">
@@ -64,8 +85,8 @@ const Footer = () => {
             transition={{ duration: 0.5 }}
             className="mb-6 md:mb-0"
           >
-            <h2 className="text-2xl font-bold text-gradient">
-              <span className="first-letter-large">K</span>HEL <span className="first-letter-large">P</span>OKER
+            <h2 className="text-2xl font-bold footer-text-gradient">
+              {formatKhelPoker()}
             </h2>
             <p className="text-sm text-gray-400 mt-1">Raise the stakes. Elevate the game.</p>
           </motion.div>

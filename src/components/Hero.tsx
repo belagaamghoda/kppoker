@@ -9,12 +9,32 @@ const Hero = () => {
   useEffect(() => {
     // Trigger animation after component mounts
     setIsVisible(true);
+    
+    // Ensure page loads at top
+    window.scrollTo(0, 0);
   }, []);
 
   // Function to style the first letter of each word
   const formatTitle = (title: string) => {
-    // For "KHEL POKER" with specific styling
-    if (title === "KHEL POKER") {
+    // For "KHEL POKER" with specific styling for mobile
+    const isMobile = window.innerWidth < 640;
+    
+    if (isMobile) {
+      // Mobile layout - stack vertically
+      return (
+        <>
+          <span className="inline-block">
+            <span className="first-letter-large">K</span>
+            <span>HEL</span>
+          </span>
+          <span className="inline-block">
+            <span className="first-letter-large">P</span>
+            <span>OKER</span>
+          </span>
+        </>
+      );
+    } else {
+      // Desktop layout
       return (
         <>
           <span className="inline-block mr-2 md:mr-3">
@@ -28,25 +48,6 @@ const Hero = () => {
         </>
       );
     }
-
-    // For other titles
-    return title.split(' ').map((word, wordIndex) => (
-      <span key={wordIndex} className="inline-block">
-        {word.split('').map((letter, letterIndex) => {
-          // Make K and P bigger for "KHEL POKER"
-          const isBiggerLetter = (letter === 'K' || letter === 'P');
-          return (
-            <span 
-              key={letterIndex} 
-              className={isBiggerLetter ? "first-letter-large" : ""}
-            >
-              {letter}
-            </span>
-          );
-        })}
-        {wordIndex < title.split(' ').length - 1 ? ' ' : ''}
-      </span>
-    ));
   };
 
   return (
@@ -63,14 +64,14 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="container max-w-5xl z-10 text-center md:content-reveal">
+      <div className="container max-w-5xl z-10 text-center md:content-reveal mobile-heading-adjust">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="space-y-6"
         >
-          <div className="inline-block mb-1">
+          <div className="inline-block mb-1 coming-soon-badge">
             <span className="text-poker-accent bg-poker-accent/10 px-4 py-1.5 rounded-full text-lg md:text-xl font-medium tracking-wider">
               COMING SOON
             </span>
@@ -82,7 +83,7 @@ const Hero = () => {
             </span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-2xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
             Where strategy meets fortune, and legends are born with every hand
           </p>
           

@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -111,6 +112,10 @@ export default {
 				'text-shimmer': {
 					'0%': { backgroundPosition: '-200% 0' },
 					'100%': { backgroundPosition: '200% 0' }
+				},
+				'footer-text-shimmer': {
+					'0%': { backgroundPosition: '200% 0' },
+					'100%': { backgroundPosition: '-200% 0' }
 				}
 			},
 			animation: {
@@ -121,11 +126,12 @@ export default {
 				'card-float': 'card-float 6s ease-in-out infinite',
 				'card-deal': 'card-deal 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards',
 				'pulse-soft': 'pulse-soft 3s infinite ease-in-out',
-				'text-shimmer': 'text-shimmer 2.5s ease-out infinite alternate'
+				'text-shimmer': 'text-shimmer 2.5s ease-out infinite alternate',
+				'footer-text-shimmer': 'footer-text-shimmer 3s ease-out infinite alternate'
 			},
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-				'text-shimmer': 'linear-gradient(90deg, transparent, #D4AF37, transparent)',
+				'text-shimmer': 'linear-gradient(90deg, transparent, #FFD700, transparent)',
 			}
 		}
 	},
