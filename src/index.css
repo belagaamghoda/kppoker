@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
 @tailwind base;
@@ -71,15 +70,19 @@
   background-image: linear-gradient(
     -45deg,
     #F5D020 0%,
-    #F9A52C 20%, 
-    #E6AB47 30%,
-    #D4AF37 50%,
-    #B8860B 70%,
-    #DAA520 85%,
-    #FFD700 100%
+    #FFA52C 10%, 
+    #E6AB47 20%,
+    #FFD700 30%,
+    #DAA520 40%,
+    #B8860B 50%,
+    #FFD700 60%,
+    #E6AB47 70%,
+    #FFD700 80%,
+    #FFA52C 90%,
+    #F5D020 100%
   );
   background-size: 300% 300%;
-  animation: gradient-wave 8s ease infinite;
+  animation: gradient-wave 6s ease infinite;
 }
 
 .footer-text-gradient {
@@ -87,15 +90,19 @@
   background-image: linear-gradient(
     -45deg,
     #F5D020 0%,
-    #F9A52C 20%, 
-    #E6AB47 30%,
-    #D4AF37 50%,
-    #B8860B 70%,
-    #DAA520 85%,
-    #FFD700 100%
+    #FFA52C 10%, 
+    #E6AB47 20%,
+    #FFD700 30%,
+    #DAA520 40%,
+    #B8860B 50%,
+    #FFD700 60%,
+    #E6AB47 70%,
+    #FFD700 80%,
+    #FFA52C 90%,
+    #F5D020 100%
   );
   background-size: 300% 300%;
-  animation: gradient-wave 8s ease infinite;
+  animation: gradient-wave 6s ease infinite;
   animation-delay: 0.5s;
 }
 
@@ -178,7 +185,7 @@
 
 .content-reveal {
   transition: opacity 0.3s ease;
-  opacity: 0.1; /* Reduce default opacity to make text darker when not hovered */
+  opacity: 0.1; /* Keep dim effect for all sections including hero */
 }
 
 .content-reveal:hover {
@@ -215,7 +222,7 @@ form.max-w-md {
   
   .coming-soon-badge {
     margin-bottom: 1.5rem;
-    margin-top: 2rem; /* Add more space above the badge */
+    margin-top: 2.5rem; /* Add more space above the badge on mobile */
   }
   
   .content-reveal, 

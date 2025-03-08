@@ -12,6 +12,10 @@ const Hero = () => {
     
     // Ensure page loads at top
     window.scrollTo(0, 0);
+    
+    // Force the page to start at the top
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0; // For Safari
   }, []);
 
   // Function to style the first letter of each word
@@ -23,7 +27,7 @@ const Hero = () => {
       // Mobile layout - stack vertically with proper spacing
       return (
         <>
-          <span className="inline-block mb-2">
+          <span className="inline-block mb-3">
             <span className="first-letter-large">K</span>
             <span>HEL</span>
           </span>
@@ -83,11 +87,11 @@ const Hero = () => {
             </span>
           </h1>
           
-          <p className="text-lg md:text-2xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-sm md:text-2xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
             Where strategy meets fortune, and legends are born with every hand
           </p>
           
-          <p className="text-lg text-gray-400 italic">
+          <p className="text-sm text-gray-400 italic">
             A vision by <a href="https://www.linkedin.com/in/ca-parth/" target="_blank" rel="noopener noreferrer" className="text-poker-gold font-medium hover:underline">Parth Sharma</a>, Founder
           </p>
         </motion.div>

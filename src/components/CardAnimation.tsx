@@ -56,7 +56,7 @@ const CardAnimation = () => {
         // Add a new card
         return [...updatedCards, generateRandomCard(cardIdRef.current++)];
       });
-    }, 1500); // Add a new card every 1.5 seconds (faster for more fluid animation)
+    }, 1200); // Add a new card every 1.2 seconds (faster for more fluid animation)
     
     return () => {
       if (intervalRef.current) {
