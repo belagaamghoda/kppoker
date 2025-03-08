@@ -93,25 +93,7 @@ const Footer = () => {
             className="text-center md:text-right"
           >
             <div className="flex items-center justify-center md:justify-end space-x-4 mb-4">
-              {/* Temporarily removed sign-in button
-              {!loading && (
-                user ? (
-                  <button 
-                    onClick={handleSignOut}
-                    className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm transition-colors"
-                  >
-                    Sign Out
-                  </button>
-                ) : (
-                  <Link 
-                    to="/auth" 
-                    className="px-4 py-2 rounded-lg bg-gradient-to-r from-poker-gold to-poker-royal text-white text-sm transition-colors"
-                  >
-                    Sign In
-                  </Link>
-                )
-              )}
-              */}
+              {/* Sign-in button is temporarily removed as requested */}
             </div>
             <p className="text-sm text-gray-400">
               &copy; {currentYear} Khel Poker. All rights reserved.
