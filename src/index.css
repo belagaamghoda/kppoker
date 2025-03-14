@@ -69,40 +69,40 @@
   @apply text-transparent bg-clip-text;
   background-image: linear-gradient(
     -45deg,
-    #F5D020 0%,
-    #FFA52C 10%, 
-    #E6AB47 20%,
-    #FFD700 30%,
-    #DAA520 40%,
-    #B8860B 50%,
-    #FFD700 60%,
-    #E6AB47 70%,
-    #FFD700 80%,
-    #FFA52C 90%,
-    #F5D020 100%
+    #8B5CF6 0%,  /* Vivid Purple */
+    #D946EF 10%, /* Magenta Pink */
+    #F97316 20%, /* Bright Orange */
+    #0EA5E9 30%, /* Ocean Blue */
+    #10B981 40%, /* Emerald */
+    #F59E0B 50%, /* Amber */
+    #EC4899 60%, /* Pink */
+    #6366F1 70%, /* Indigo */
+    #3B82F6 80%, /* Blue */
+    #8B5CF6 90%, /* Vivid Purple again */
+    #D946EF 100% /* Magenta Pink again */
   );
   background-size: 300% 300%;
-  animation: gradient-wave 6s ease infinite;
+  animation: gradient-wave 5s ease infinite;
 }
 
 .footer-text-gradient {
   @apply text-transparent bg-clip-text;
   background-image: linear-gradient(
     -45deg,
-    #F5D020 0%,
-    #FFA52C 10%, 
-    #E6AB47 20%,
-    #FFD700 30%,
-    #DAA520 40%,
-    #B8860B 50%,
-    #FFD700 60%,
-    #E6AB47 70%,
-    #FFD700 80%,
-    #FFA52C 90%,
-    #F5D020 100%
+    #8B5CF6 0%,  /* Vivid Purple */
+    #D946EF 10%, /* Magenta Pink */
+    #F97316 20%, /* Bright Orange */
+    #0EA5E9 30%, /* Ocean Blue */
+    #10B981 40%, /* Emerald */
+    #F59E0B 50%, /* Amber */
+    #EC4899 60%, /* Pink */
+    #6366F1 70%, /* Indigo */
+    #3B82F6 80%, /* Blue */
+    #8B5CF6 90%, /* Vivid Purple again */
+    #D946EF 100% /* Magenta Pink again */
   );
   background-size: 300% 300%;
-  animation: gradient-wave 6s ease infinite;
+  animation: gradient-wave 5s ease infinite;
   animation-delay: 0.5s;
 }
 
