@@ -68,7 +68,7 @@ const CardAnimation = () => {
   // Function to render card content properly
   const renderCardContent = (card: Card) => {
     const isRed = card.suit === '♥' || card.suit === '♦';
-    const suitColor = isRed ? 'text-poker-accent' : 'text-poker-navy';
+    const suitColor = isRed ? 'text-red-500' : 'text-black';
 
     return (
       <>
@@ -115,7 +115,7 @@ const CardAnimation = () => {
               delay: card.delay,
               duration: 0.8
             }}
-            className={`absolute w-14 h-20 md:w-20 md:h-28 rounded-md flex items-center justify-center text-xl md:text-2xl font-bold bg-white shadow-lg`}
+            className="absolute w-14 h-20 md:w-20 md:h-28 rounded-md flex items-center justify-center text-xl md:text-2xl font-bold bg-white shadow-lg"
           >
             {renderCardContent(card)}
           </motion.div>
