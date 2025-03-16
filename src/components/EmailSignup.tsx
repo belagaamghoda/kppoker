@@ -134,19 +134,19 @@ const EmailSignup = () => {
         return;
       }
 
-      // Use upsert instead of insert with onConflict option
-      // This bypasses the requirement to provide an id
+      // Generate a UUID for the new profile
+      // We need to provide an id as it's a required field in the profiles table
+      const newId = crypto.randomUUID();
+      
       const { error } = await supabase
         .from('profiles')
-        .upsert({
+        .insert({
+          id: newId,
           email: values.email,
           full_name: values.fullName,
           preferred_username: values.preferredUsername,
           country_code: values.countryCode,
           mobile_number: values.mobileNumber,
-        }, { 
-          onConflict: 'email',
-          ignoreDuplicates: false
         });
 
       if (error) throw error;
