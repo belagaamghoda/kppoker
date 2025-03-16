@@ -68,7 +68,7 @@ const CardAnimation = () => {
   // Function to render card content properly
   const renderCardContent = (card: Card) => {
     const isRed = card.suit === '♥' || card.suit === '♦';
-    const suitColor = isRed ? 'text-red-500' : 'text-black';
+    const suitColor = isRed ? 'text-red-600' : 'text-black';
 
     return (
       <>
