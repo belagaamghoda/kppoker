@@ -65,6 +65,26 @@ const CardAnimation = () => {
     };
   }, []);
 
+  // Function to render card content properly
+  const renderCardContent = (card: Card) => {
+    const isRed = card.suit === '♥' || card.suit === '♦';
+    const suitColor = isRed ? 'text-poker-accent' : 'text-poker-navy';
+
+    return (
+      <>
+        <div className={`absolute top-1 left-1 text-sm md:text-base ${suitColor}`}>
+          {card.value}
+          <span className="ml-0.5 text-xs">{card.suit}</span>
+        </div>
+        <div className={`text-2xl md:text-4xl ${suitColor}`}>{card.suit}</div>
+        <div className={`absolute bottom-1 right-1 text-sm md:text-base rotate-180 ${suitColor}`}>
+          {card.value}
+          <span className="ml-0.5 text-xs">{card.suit}</span>
+        </div>
+      </>
+    );
+  };
+
   return (
     <div className="absolute inset-0 pointer-events-none">
       <AnimatePresence>
@@ -95,13 +115,9 @@ const CardAnimation = () => {
               delay: card.delay,
               duration: 0.8
             }}
-            className={`absolute w-14 h-20 md:w-20 md:h-28 rounded-md flex items-center justify-center text-xl md:text-2xl font-bold bg-white shadow-lg ${
-              card.suit === '♥' || card.suit === '♦' ? 'text-poker-accent' : 'text-poker-navy'
-            }`}
+            className={`absolute w-14 h-20 md:w-20 md:h-28 rounded-md flex items-center justify-center text-xl md:text-2xl font-bold bg-white shadow-lg`}
           >
-            <div className="absolute top-1 left-1 text-sm md:text-base">{card.value}</div>
-            <div className="text-2xl md:text-4xl">{card.suit}</div>
-            <div className="absolute bottom-1 right-1 text-sm md:text-base rotate-180">{card.value}</div>
+            {renderCardContent(card)}
           </motion.div>
         ))}
       </AnimatePresence>
