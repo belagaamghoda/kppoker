@@ -134,17 +134,19 @@ const EmailSignup = () => {
         return;
       }
 
-      // Modified: Remove the array brackets and passing a single object
-      // The schema requires an id field, but we want Supabase to generate it for us
-      // This is one way to handle it for auto-generating UUIDs
+      // Use upsert instead of insert with onConflict option
+      // This bypasses the requirement to provide an id
       const { error } = await supabase
         .from('profiles')
-        .insert({
+        .upsert({
           email: values.email,
           full_name: values.fullName,
           preferred_username: values.preferredUsername,
           country_code: values.countryCode,
           mobile_number: values.mobileNumber,
+        }, { 
+          onConflict: 'email',
+          ignoreDuplicates: false
         });
 
       if (error) throw error;
