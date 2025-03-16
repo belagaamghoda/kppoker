@@ -134,17 +134,18 @@ const EmailSignup = () => {
         return;
       }
 
-      // Create the insert data without the id field
-      // The database will generate the UUID automatically with the default value
+      // Modified: Remove the array brackets and passing a single object
+      // The schema requires an id field, but we want Supabase to generate it for us
+      // This is one way to handle it for auto-generating UUIDs
       const { error } = await supabase
         .from('profiles')
-        .insert([{
+        .insert({
           email: values.email,
           full_name: values.fullName,
           preferred_username: values.preferredUsername,
           country_code: values.countryCode,
           mobile_number: values.mobileNumber,
-        }]);
+        });
 
       if (error) throw error;
       
