@@ -55,8 +55,9 @@ const EmailSignup = () => {
     setIsSubmitting(true);
     
     try {
-      // Insert data into Supabase profiles table
-      const { data, error } = await supabase
+      // Create the insert data without the id field
+      // The database will generate the UUID automatically with the default value
+      const { error } = await supabase
         .from('profiles')
         .insert({
           email: values.email,
@@ -64,8 +65,7 @@ const EmailSignup = () => {
           preferred_username: values.username || null,
           country_code: values.countryCode || null,
           mobile_number: values.mobileNumber || null,
-        })
-        .select();
+        });
 
       if (error) throw error;
       
