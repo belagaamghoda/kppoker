@@ -17,6 +17,13 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 // Form validation schema
 const formSchema = z.object({
@@ -25,15 +32,32 @@ const formSchema = z.object({
   }),
   fullName: z.string().min(2, {
     message: "Name must be at least 2 characters.",
-  }).optional(),
-  username: z.string().min(3, {
-    message: "Username must be at least 3 characters.",
-  }).optional(),
-  countryCode: z.string().optional(),
-  mobileNumber: z.string().optional(),
+  }),
+  preferredUsername: z.string().min(3, {
+    message: "Preferred username must be at least 3 characters.",
+  }),
+  countryCode: z.string({
+    required_error: "Please select a country code.",
+  }),
+  mobileNumber: z.string().min(5, {
+    message: "Please enter a valid mobile number.",
+  }),
 });
 
 type FormValues = z.infer<typeof formSchema>;
+
+const countryCodes = [
+  { value: "+91", label: "India (+91)" },
+  { value: "+1", label: "USA (+1)" },
+  { value: "+44", label: "UK (+44)" },
+  { value: "+61", label: "Australia (+61)" },
+  { value: "+86", label: "China (+86)" },
+  { value: "+81", label: "Japan (+81)" },
+  { value: "+49", label: "Germany (+49)" },
+  { value: "+33", label: "France (+33)" },
+  { value: "+7", label: "Russia (+7)" },
+  { value: "+55", label: "Brazil (+55)" },
+];
 
 const EmailSignup = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -45,8 +69,8 @@ const EmailSignup = () => {
     defaultValues: {
       email: '',
       fullName: '',
-      username: '',
-      countryCode: '',
+      preferredUsername: '',
+      countryCode: '+91', // Default to India code
       mobileNumber: '',
     },
   });
@@ -55,17 +79,72 @@ const EmailSignup = () => {
     setIsSubmitting(true);
     
     try {
+      // Check for duplicate email
+      const { data: emailExists, error: emailError } = await supabase
+        .from('profiles')
+        .select('email')
+        .eq('email', values.email)
+        .maybeSingle();
+
+      if (emailExists) {
+        toast({
+          title: "Email already registered",
+          description: "This email is already in use. Please try another.",
+          variant: "destructive",
+          duration: 5000,
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Check for duplicate username
+      const { data: usernameExists, error: usernameError } = await supabase
+        .from('profiles')
+        .select('preferred_username')
+        .eq('preferred_username', values.preferredUsername)
+        .maybeSingle();
+
+      if (usernameExists) {
+        toast({
+          title: "Username already taken",
+          description: "This username is already in use. Please choose another.",
+          variant: "destructive",
+          duration: 5000,
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Check for duplicate mobile number
+      const { data: mobileExists, error: mobileError } = await supabase
+        .from('profiles')
+        .select('mobile_number')
+        .eq('mobile_number', values.mobileNumber)
+        .eq('country_code', values.countryCode)
+        .maybeSingle();
+
+      if (mobileExists) {
+        toast({
+          title: "Mobile number already registered",
+          description: "This mobile number is already in use. Please try another.",
+          variant: "destructive",
+          duration: 5000,
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
       // Create the insert data without the id field
       // The database will generate the UUID automatically with the default value
       const { error } = await supabase
         .from('profiles')
-        .insert({
+        .insert([{
           email: values.email,
-          full_name: values.fullName || null,
-          preferred_username: values.username || null,
-          country_code: values.countryCode || null,
-          mobile_number: values.mobileNumber || null,
-        });
+          full_name: values.fullName,
+          preferred_username: values.preferredUsername,
+          country_code: values.countryCode,
+          mobile_number: values.mobileNumber,
+        }]);
 
       if (error) throw error;
       
@@ -83,7 +162,8 @@ const EmailSignup = () => {
       if (error.code === '23505') {
         toast({
           title: "Already registered",
-          description: "This email is already registered with us.",
+          description: "This information is already registered with us.",
+          variant: "destructive",
           duration: 5000,
         });
       } else {
@@ -109,7 +189,7 @@ const EmailSignup = () => {
             name="email"
             render={({ field }) => (
               <FormItem className="md:col-span-2">
-                <FormLabel className="text-gray-300">Email Address*</FormLabel>
+                <FormLabel className="text-gray-300">Email Address</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Enter your email address"
@@ -132,6 +212,7 @@ const EmailSignup = () => {
                 <FormControl>
                   <Input
                     placeholder="Your full name"
+                    required
                     className="px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-poker-gold/50 shadow-[0_0_15px_rgba(255,215,0,0.1)]"
                     {...field}
                   />
@@ -143,13 +224,14 @@ const EmailSignup = () => {
 
           <FormField
             control={form.control}
-            name="username"
+            name="preferredUsername"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-gray-300">Username</FormLabel>
+                <FormLabel className="text-gray-300">Preferred Username</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Choose a username"
+                    required
                     className="px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-poker-gold/50 shadow-[0_0_15px_rgba(255,215,0,0.1)]"
                     {...field}
                   />
@@ -165,13 +247,24 @@ const EmailSignup = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-gray-300">Country Code</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="+1"
-                    className="px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-poker-gold/50 shadow-[0_0_15px_rgba(255,215,0,0.1)]"
-                    {...field}
-                  />
-                </FormControl>
+                <Select 
+                  defaultValue={field.value} 
+                  onValueChange={field.onChange}
+                  required
+                >
+                  <FormControl>
+                    <SelectTrigger className="px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-poker-gold/50 shadow-[0_0_15px_rgba(255,215,0,0.1)]">
+                      <SelectValue placeholder="Select country code" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent className="bg-slate-800 border border-white/20 text-white">
+                    {countryCodes.map((code) => (
+                      <SelectItem key={code.value} value={code.value}>
+                        {code.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
@@ -186,6 +279,7 @@ const EmailSignup = () => {
                 <FormControl>
                   <Input
                     placeholder="Your mobile number"
+                    required
                     className="px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-poker-gold/50 shadow-[0_0_15px_rgba(255,215,0,0.1)]"
                     {...field}
                   />
