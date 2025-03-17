@@ -134,22 +134,25 @@ const EmailSignup = () => {
         return;
       }
 
-      // Generate a UUID for the new profile
-      // We need to provide an id as it's a required field in the profiles table
-      const newId = crypto.randomUUID();
-      
-      const { error } = await supabase
-        .from('profiles')
-        .insert({
-          id: newId,
-          email: values.email,
-          full_name: values.fullName,
-          preferred_username: values.preferredUsername,
-          country_code: values.countryCode,
-          mobile_number: values.mobileNumber,
-        });
+      // First, create auth user then use the returned ID for the profile
+      const { data: authData, error: signUpError } = await supabase.auth.signUp({
+        email: values.email,
+        password: crypto.randomUUID(), // Generate a random password since we're just collecting emails
+        options: {
+          data: {
+            full_name: values.fullName,
+            preferred_username: values.preferredUsername,
+            country_code: values.countryCode,
+            mobile_number: values.mobileNumber
+          }
+        }
+      });
 
-      if (error) throw error;
+      if (signUpError) throw signUpError;
+      
+      if (!authData.user) {
+        throw new Error("Failed to create user");
+      }
       
       // Show success toast
       toast({
@@ -161,6 +164,8 @@ const EmailSignup = () => {
       // Reset form
       form.reset();
     } catch (error: any) {
+      console.error("Signup error:", error);
+      
       // Handle specific error for duplicate email
       if (error.code === '23505') {
         toast({
