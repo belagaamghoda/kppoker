@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Hero from '../components/Hero';
@@ -100,14 +99,17 @@ const Index = () => {
       container.addEventListener('mousemove', handleMouseMove);
       container.addEventListener('mouseleave', handleMouseLeave);
       
-      // Trigger the spotlight effect immediately to make content visible
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
-      const fakeEvent = new MouseEvent('mousemove', {
-        clientX: centerX,
-        clientY: centerY
+      // Set initial dimmed state
+      const elements = document.querySelectorAll('.content-reveal');
+      elements.forEach(el => {
+        if (isMobile.current) {
+          (el as HTMLElement).style.opacity = '1';
+        } else if ((el as HTMLElement).querySelector('form.max-w-md')) {
+          (el as HTMLElement).style.opacity = '0.7';
+        } else {
+          (el as HTMLElement).style.opacity = '0.1';
+        }
       });
-      handleMouseMove(fakeEvent);
     }
 
     return () => {

@@ -76,7 +76,7 @@ const Hero = () => {
           className="space-y-6"
         >
           <div className="inline-block mb-1 coming-soon-badge">
-            <span className="text-poker-accent bg-poker-accent/10 px-4 py-1.5 rounded-full text-lg md:text-xl font-medium tracking-wider">
+            <span className="text-red-500 bg-red-500/10 border border-red-500 px-4 py-1.5 rounded-full text-lg md:text-xl font-medium tracking-wider">
               COMING SOON
             </span>
           </div>

@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
 @tailwind base;
@@ -185,11 +186,11 @@
 
 .content-reveal {
   transition: opacity 0.3s ease;
-  opacity: 0.1; /* Keep dim effect for all sections including hero */
+  opacity: 0.1 !important; /* Ensure initial dim state */
 }
 
 .content-reveal:hover {
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 .logo-text {
