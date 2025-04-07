@@ -68,7 +68,7 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="container max-w-5xl z-10 text-center md:content-reveal mobile-heading-adjust">
+      <div className="container max-w-5xl z-10 text-center content-reveal mobile-heading-adjust">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
