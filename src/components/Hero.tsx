@@ -1,10 +1,13 @@
-
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import CardAnimation from './CardAnimation';
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const founderRef = useRef<HTMLParagraphElement>(null);
+  const isMobileRef = useRef(window.innerWidth < 640);
 
   useEffect(() => {
     // Trigger animation after component mounts
@@ -16,15 +19,95 @@ const Hero = () => {
     // Force the page to start at the top
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0; // For Safari
+
+    const checkMobile = () => {
+      isMobileRef.current = window.innerWidth < 640;
+    };
+
+    window.addEventListener('resize', checkMobile);
+    checkMobile();
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
   }, []);
 
-  // Function to style the first letter of each word
-  const formatTitle = (title: string) => {
-    // For "KHEL POKER" with specific styling for mobile
-    const isMobile = window.innerWidth < 640;
+  // Mouse move handler for proximity-based hover effect
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (isMobileRef.current) return;
+
+    const applyProximityEffect = (element: HTMLElement | null, maxDistance: number = 200) => {
+      if (!element) return;
+
+      const rect = element.getBoundingClientRect();
+      // Get mouse position relative to viewport
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+
+      // Calculate center of element
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      // Calculate distance from mouse to center of element
+      const distance = Math.sqrt(
+        Math.pow(mouseX - centerX, 2) + 
+        Math.pow(mouseY - centerY, 2)
+      );
+
+      // Scale opacity based on distance (closer = brighter)
+      const opacityValue = Math.max(0.3, 1 - Math.min(distance / maxDistance, 0.7));
+      element.style.opacity = opacityValue.toString();
+    };
+
+    // Apply effect to each text element
+    if (titleRef.current) {
+      const headingLetters = titleRef.current.querySelectorAll('.letter-span');
+      headingLetters.forEach(letter => {
+        const letterEl = letter as HTMLSpanElement;
+        const rect = letterEl.getBoundingClientRect();
+        const distance = Math.sqrt(
+          Math.pow(e.clientX - (rect.left + rect.width / 2), 2) + 
+          Math.pow(e.clientY - (rect.top + rect.height / 2), 2)
+        );
+        
+        // More precise effect for letters - closer distance threshold
+        const maxLetterDistance = 100;
+        const opacity = Math.max(0.3, 1 - Math.min(distance / maxLetterDistance, 0.7));
+        letterEl.style.opacity = opacity.toString();
+      });
+    }
     
-    if (isMobile) {
-      // Mobile layout - stack vertically with proper spacing
+    // Apply to subtitle and founder text
+    applyProximityEffect(subtitleRef.current);
+    applyProximityEffect(founderRef.current);
+  };
+
+  // Reset opacity when mouse leaves
+  const handleMouseLeave = () => {
+    if (isMobileRef.current) return;
+
+    const resetOpacity = (element: HTMLElement | null, defaultOpacity: string = '0.3') => {
+      if (!element) return;
+      element.style.opacity = defaultOpacity;
+    };
+
+    // Reset title letter opacity
+    if (titleRef.current) {
+      const headingLetters = titleRef.current.querySelectorAll('.letter-span');
+      headingLetters.forEach(letter => {
+        (letter as HTMLSpanElement).style.opacity = '0.3';
+      });
+    }
+
+    // Reset subtitle and founder text
+    resetOpacity(subtitleRef.current);
+    resetOpacity(founderRef.current);
+  };
+
+  // Function to create letter-by-letter spans for title
+  const formatTitle = (title: string) => {
+    // For mobile, keep the current simplified approach
+    if (isMobileRef.current) {
       return (
         <>
           <span className="inline-block mb-3">
@@ -37,25 +120,44 @@ const Hero = () => {
           </span>
         </>
       );
-    } else {
-      // Desktop layout
-      return (
-        <>
-          <span className="inline-block mr-2 md:mr-3">
-            <span className="first-letter-large">K</span>
-            <span>HEL</span>
-          </span>
-          <span className="inline-block">
-            <span className="first-letter-large">P</span>
-            <span>OKER</span>
-          </span>
-        </>
-      );
     }
+    
+    // For desktop, create individual letter spans for precise hover
+    const word1 = "KHEL";
+    const word2 = "POKER";
+    
+    return (
+      <>
+        <span className="inline-block mr-2 md:mr-3">
+          {word1.split('').map((letter, idx) => (
+            <span 
+              key={`khel-${idx}`} 
+              className={`letter-span ${idx === 0 ? 'first-letter-large' : ''}`}
+            >
+              {letter}
+            </span>
+          ))}
+        </span>
+        <span className="inline-block">
+          {word2.split('').map((letter, idx) => (
+            <span 
+              key={`poker-${idx}`} 
+              className={`letter-span ${idx === 0 ? 'first-letter-large' : ''}`}
+            >
+              {letter}
+            </span>
+          ))}
+        </span>
+      </>
+    );
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden">
+    <section 
+      className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
       {/* Background Elements */}
       <div className="absolute inset-0 bg-black z-[-1]">
         <div className="absolute top-0 left-0 w-full h-full bg-poker-royal/10" />
@@ -68,7 +170,7 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="container max-w-5xl z-10 text-center content-reveal mobile-heading-adjust">
+      <div className="container max-w-5xl z-10 text-center mobile-heading-adjust">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
@@ -81,17 +183,28 @@ const Hero = () => {
             </span>
           </div>
           
-          <h1 className="text-5xl md:text-8xl font-bold leading-tight md:leading-tight">
+          <h1 
+            ref={titleRef} 
+            className="text-5xl md:text-8xl font-bold leading-tight md:leading-tight hover-effect"
+          >
             <span className="text-gradient">
               {formatTitle("KHEL POKER")}
             </span>
           </h1>
           
-          <p className="text-sm md:text-2xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+          <p 
+            ref={subtitleRef} 
+            className="text-sm md:text-2xl text-gray-300 max-w-2xl mx-auto leading-relaxed hover-effect"
+            style={{ opacity: isMobileRef.current ? '1' : '0.3', transition: 'opacity 0.2s ease' }}
+          >
             Where strategy meets fortune, and legends are born with every hand
           </p>
           
-          <p className="text-sm text-gray-400 italic">
+          <p 
+            ref={founderRef} 
+            className="text-sm text-gray-400 italic hover-effect"
+            style={{ opacity: isMobileRef.current ? '1' : '0.3', transition: 'opacity 0.2s ease' }}
+          >
             A vision by <a href="https://www.linkedin.com/in/ca-parth/" target="_blank" rel="noopener noreferrer" className="text-poker-gold font-medium hover:underline">Parth Sharma</a>, Founder
           </p>
         </motion.div>

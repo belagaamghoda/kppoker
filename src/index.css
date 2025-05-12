@@ -202,6 +202,17 @@
   opacity: 1;
 }
 
+/* Letter-by-letter hover effect styling */
+.letter-span {
+  display: inline-block;
+  opacity: 0.3;
+  transition: opacity 0.2s ease;
+}
+
+.hover-effect {
+  transition: opacity 0.2s ease;
+}
+
 .first-letter-large {
   display: inline-block;
   font-size: 1.2em; /* Slightly reduced from 1.3em */
@@ -239,5 +250,14 @@ form.max-w-md {
   .first-letter-large {
     display: inline-block !important;
     font-size: 1.3em !important;
+  }
+  
+  /* Ensure letters are always visible on mobile */
+  .letter-span {
+    opacity: 1 !important;
+  }
+  
+  .hover-effect {
+    opacity: 1 !important;
   }
 }
