@@ -32,6 +32,8 @@ jobs:
         run: npm ci
       - name: Build with Vite
         run: npm run build
+      - name: Debug - List build files
+        run: ls -la ./dist
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
