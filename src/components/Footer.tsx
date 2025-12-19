@@ -1,61 +1,13 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { supabase } from '../integrations/supabase/client';
-import { useNavigate } from 'react-router-dom';
-import { useToast } from "@/components/ui/use-toast";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const { toast } = useToast();
-  const navigate = useNavigate();
-  const [user, setUser] = React.useState<any>(null);
-  const [loading, setLoading] = React.useState(true);
-
-  React.useEffect(() => {
-    // Check current auth status
-    const checkUser = async () => {
-      const { data } = await supabase.auth.getSession();
-      setUser(data.session?.user || null);
-      setLoading(false);
-    };
-    
-    checkUser();
-    
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setUser(session?.user || null);
-      }
-    );
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, []);
-
-  const handleSignOut = async () => {
-    try {
-      await supabase.auth.signOut();
-      toast({
-        title: "Signed out successfully",
-        duration: 3000,
-      });
-      navigate('/');
-    } catch (error: any) {
-      toast({
-        title: "Error signing out",
-        description: error.message,
-        variant: "destructive",
-        duration: 3000,
-      });
-    }
-  };
 
   // Function to format the Khel Poker text with larger first letters
   const formatKhelPoker = () => {
-    const isMobile = window.innerWidth < 640;
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
     
     if (isMobile) {
       // Mobile layout - stack vertically
@@ -113,9 +65,6 @@ const Footer = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-center md:text-right"
           >
-            <div className="flex items-center justify-center md:justify-end space-x-4 mb-4">
-              {/* Sign-in button is temporarily removed as requested */}
-            </div>
             <p className="text-sm text-gray-400">
               &copy; {currentYear} Khel Poker. All rights reserved.
             </p>
