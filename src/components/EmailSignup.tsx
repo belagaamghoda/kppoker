@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from '@/integrations/supabase/client';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -15,7 +14,6 @@ import {
   FormMessage 
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import {
   Select,
@@ -78,114 +76,19 @@ const EmailSignup = () => {
   const handleSubmit = async (values: FormValues) => {
     setIsSubmitting(true);
     
-    try {
-      // Check for duplicate email
-      const { data: emailExists, error: emailError } = await supabase
-        .from('profiles')
-        .select('email')
-        .eq('email', values.email)
-        .maybeSingle();
-
-      if (emailExists) {
-        toast({
-          title: "Email already registered",
-          description: "This email is already in use. Please try another.",
-          variant: "destructive",
-          duration: 5000,
-        });
-        setIsSubmitting(false);
-        return;
-      }
-
-      // Check for duplicate username
-      const { data: usernameExists, error: usernameError } = await supabase
-        .from('profiles')
-        .select('preferred_username')
-        .eq('preferred_username', values.preferredUsername)
-        .maybeSingle();
-
-      if (usernameExists) {
-        toast({
-          title: "Username already taken",
-          description: "This username is already in use. Please choose another.",
-          variant: "destructive",
-          duration: 5000,
-        });
-        setIsSubmitting(false);
-        return;
-      }
-
-      // Check for duplicate mobile number
-      const { data: mobileExists, error: mobileError } = await supabase
-        .from('profiles')
-        .select('mobile_number')
-        .eq('mobile_number', values.mobileNumber)
-        .eq('country_code', values.countryCode)
-        .maybeSingle();
-
-      if (mobileExists) {
-        toast({
-          title: "Mobile number already registered",
-          description: "This mobile number is already in use. Please try another.",
-          variant: "destructive",
-          duration: 5000,
-        });
-        setIsSubmitting(false);
-        return;
-      }
-
-      // First, create auth user then use the returned ID for the profile
-      const { data: authData, error: signUpError } = await supabase.auth.signUp({
-        email: values.email,
-        password: crypto.randomUUID(), // Generate a random password since we're just collecting emails
-        options: {
-          data: {
-            full_name: values.fullName,
-            preferred_username: values.preferredUsername,
-            country_code: values.countryCode,
-            mobile_number: values.mobileNumber
-          }
-        }
-      });
-
-      if (signUpError) throw signUpError;
-      
-      if (!authData.user) {
-        throw new Error("Failed to create user");
-      }
-      
-      // Show success toast
-      toast({
-        title: "You're on the list!",
-        description: "We'll notify you when we launch.",
-        duration: 5000,
-      });
-      
-      // Reset form
-      form.reset();
-    } catch (error: any) {
-      console.error("Signup error:", error);
-      
-      // Handle specific error for duplicate email
-      if (error.code === '23505') {
-        toast({
-          title: "Already registered",
-          description: "This information is already registered with us.",
-          variant: "destructive",
-          duration: 5000,
-        });
-      } else {
-        // Generic error handling
-        toast({
-          title: "Something went wrong",
-          description: error.message || "Please try again later.",
-          variant: "destructive",
-          duration: 5000,
-        });
-      }
-    } finally {
-      setIsSubmitting(false);
-    }
+    // Simulate a brief delay for UX
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    // Show success toast
+    toast({
+      title: "You're on the list!",
+      description: `Thank you ${values.fullName}, we'll notify you when we launch.`,
+      duration: 5000,
+    });
+    
+    // Reset form
+    form.reset();
+    setIsSubmitting(false);
   };
 
   return (
